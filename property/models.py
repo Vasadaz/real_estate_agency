@@ -25,6 +25,12 @@ class Flat(models.Model):
     address = models.TextField(
         'Адрес квартиры',
         help_text='ул. Подольских курсантов д.5 кв.4')
+    new_building = models.BooleanField(
+        'Новостройка',
+        db_index=True,
+        null=True,
+        default=None,
+    )
     floor = models.CharField(
         'Этаж',
         max_length=3,
@@ -39,7 +45,12 @@ class Flat(models.Model):
         blank=True,
         db_index=True)
 
-    has_balcony = models.NullBooleanField('Наличие балкона', db_index=True)
+    has_balcony = models.BooleanField(
+        'Наличие балкона',
+        db_index=True,
+        null=True,
+        default=None,
+    )
     active = models.BooleanField('Активно-ли объявление', db_index=True)
     construction_year = models.IntegerField(
         'Год постройки здания',
