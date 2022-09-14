@@ -29,7 +29,6 @@ class Flat(models.Model):
         'Новостройка',
         db_index=True,
         null=True,
-        default=None,
     )
     floor = models.CharField(
         'Этаж',
