@@ -2,7 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
-from phonenumber_field.widgets import PhoneNumberPrefixWidget
 
 
 class Flat(models.Model):
@@ -13,6 +12,11 @@ class Flat(models.Model):
     owners_phonenumber = models.CharField(
         verbose_name='Номер владельца',
         max_length=20,
+    )
+    owner_pure_phone = PhoneNumberField(
+        verbose_name='Нормализованный номер владельца',
+        region='RU',
+        blank=True,
     )
     created_at = models.DateTimeField(
         verbose_name='Когда создано объявление',
