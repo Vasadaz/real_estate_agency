@@ -55,7 +55,7 @@ class Flat(models.Model):
         db_index=True,
     )
     living_area = models.IntegerField(
-        verbose_name='количество жилых кв.метров',
+        verbose_name='Количество жилых кв.метров',
         null=True,
         blank=True,
         db_index=True,
@@ -75,6 +75,11 @@ class Flat(models.Model):
         null=True,
         blank=True,
         db_index=True,
+    )
+    liked_by = models.ManyToManyField(
+        User,
+        verbose_name='Кому понравилось',
+        related_name='liked_flats',
     )
 
     def __str__(self):
