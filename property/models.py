@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+from phonenumber_field.modelfields import PhoneNumberField
+from phonenumber_field.widgets import PhoneNumberPrefixWidget
 
 
 class Flat(models.Model):
@@ -80,6 +82,7 @@ class Flat(models.Model):
         User,
         verbose_name='Кому понравилось',
         related_name='liked_flats',
+        blank=True,
     )
 
     def __str__(self):
