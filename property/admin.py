@@ -15,15 +15,13 @@ class FlatAdmin(admin.ModelAdmin):
         'price',
         'construction_year',
         'new_building',
-        'owners_phonenumber',
-        'owner_pure_phone',
     )
     list_editable = ('new_building',)
     list_filter = ('new_building', 'rooms_number', 'has_balcony',)
     list_per_page = 15
     raw_id_fields = ('liked_by',)
     readonly_fields = ['created_at', ]
-    search_fields = ['town', 'address', 'owner', ]
+    search_fields = ['town', 'address', ]
 
 
 class OwnerAdmin(admin.ModelAdmin):
