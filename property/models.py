@@ -120,7 +120,10 @@ class Owner(models.Model):
     flats = models.ManyToManyField(
         Flat,
         verbose_name='Квартиры в собственности',
-        related_name='owner_flats',
+        related_name='owners_flat',
         blank=True,
         db_index=True,
     )
+
+    def __str__(self):
+        return f'Owner {self.owner} tel. {self.owner_pure_phone}'
