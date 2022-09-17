@@ -76,6 +76,10 @@ class Flat(models.Model):
         blank=True,
     )
 
+    class Meta:
+        verbose_name = 'квартиру'
+        verbose_name_plural = 'Квартиры'
+
     def __str__(self):
         return f'{self.town}, {self.address} ({self.price}р.)'
 
@@ -96,8 +100,12 @@ class Complaint(models.Model):
         verbose_name='Жалоба',
     )
 
+    class Meta:
+        verbose_name = 'жалобу'
+        verbose_name_plural = 'Жалобы'
+
     def __str__(self):
-        return f'{self.user} complains about the apartment {self.flat}'
+        return f'{self.user} жалуется на квартиру: {self.flat}.'
 
 
 class Owner(models.Model):
@@ -120,10 +128,14 @@ class Owner(models.Model):
     flats = models.ManyToManyField(
         Flat,
         verbose_name='Квартиры в собственности',
-        related_name='owners_flat',
+        related_name='owners',
         blank=True,
         db_index=True,
     )
 
+    class Meta:
+        verbose_name = 'собственника'
+        verbose_name_plural = 'Собственники'
+
     def __str__(self):
-        return f'Owner {self.owner} tel. {self.owner_pure_phone}'
+        return f'Собственник {self.owner} тел. {self.owner_pure_phone}'

@@ -9,8 +9,9 @@ class ComplaintAdmin(admin.ModelAdmin):
 
 
 class OwnerInstanceInline(admin.TabularInline):
-    model = Flat.owners_flat.through
-    raw_id_fields = ('owner', )
+    model = Flat.owners.through
+    raw_id_fields = ('owner',)
+
 
 class FlatAdmin(admin.ModelAdmin):
     inlines = [OwnerInstanceInline]
@@ -31,7 +32,6 @@ class FlatAdmin(admin.ModelAdmin):
 
 class OwnerAdmin(admin.ModelAdmin):
     raw_id_fields = ('flats',)
-
 
 
 admin.site.register(Complaint, ComplaintAdmin)
