@@ -6,7 +6,7 @@ from django.db import migrations
 def move_flat_owners_to_owner(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     Owner = apps.get_model('property', 'Owner')
-    for flat in Flat.objects.all():
+    for flat in Flat.objects.iterator():
         owner, created = Owner.objects.get_or_create(
             owner=flat.owner,
             owners_phonenumber=flat.owners_phonenumber,
@@ -15,11 +15,9 @@ def move_flat_owners_to_owner(apps, schema_editor):
         owner.flats.add(flat)
 
 
-
 def rollback(apps, schema_editor):
     Owner = apps.get_model('property', 'Owner')
-    for owner in Owner.objects.all():
-        owner.delete()
+    Owner.objects.delete()
 
 
 class Migration(migrations.Migration):

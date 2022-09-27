@@ -7,13 +7,16 @@ def identify_new_building(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     new_building_year = 2015
 
-    for flat in Flat.objects.all():
-        if flat.construction_year >= new_building_year:
-            flat.new_building = True
-            flat.save()
-        else:
-            flat.new_building = False
-            flat.save()
+    Flat.objects.filter(
+        construction_year__gte=new_building_year,
+    ).update(
+        new_building=True,
+    )
+
+
+def rollback(apps, schema_editor):
+    Flat = apps.get_model('property', 'Flat')
+    Flat.objects.update(new_building=False)
 
 
 class Migration(migrations.Migration):
@@ -23,5 +26,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(identify_new_building, ),
+        migrations.RunPython(identify_new_building, rollback),
     ]

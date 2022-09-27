@@ -6,7 +6,7 @@ from django.db import migrations
 
 def normalize_owners_phonenumber(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
-    for flat in Flat.objects.all():
+    for flat in Flat.objects.iterator():
         normalization_number = phonenumbers.parse(flat.owners_phonenumber, 'RU')
         international_number = phonenumbers.format_number(normalization_number, phonenumbers.PhoneNumberFormat.E164)
         if not normalization_number.italian_leading_zero:
@@ -18,9 +18,7 @@ def normalize_owners_phonenumber(apps, schema_editor):
 
 def rollback(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
-    for flat in Flat.objects.all():
-        flat.owner_pure_phone = ''
-        flat.save()
+    Flat.objects.update(owner_pure_phone='')
 
 
 class Migration(migrations.Migration):
