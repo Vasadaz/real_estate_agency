@@ -40,8 +40,9 @@ class Flat(models.Model):
     )
     floor = models.CharField(
         verbose_name='Этаж',
-        max_length=3,
         help_text='Первый этаж, последний этаж, пятый этаж',
+        max_length=3,
+
     )
     rooms_number = models.IntegerField(
         verbose_name='Количество комнат в квартире',
@@ -49,15 +50,15 @@ class Flat(models.Model):
     )
     living_area = models.IntegerField(
         verbose_name='Количество жилых кв.метров',
-        null=True,
         blank=True,
         db_index=True,
+        null=True,
     )
     has_balcony = models.BooleanField(
         verbose_name='Наличие балкона',
         db_index=True,
-        null=True,
         default=None,
+        null=True,
     )
     active = models.BooleanField(
         verbose_name='Активно-ли объявление',
@@ -65,9 +66,10 @@ class Flat(models.Model):
     )
     construction_year = models.IntegerField(
         verbose_name='Год постройки здания',
-        null=True,
         blank=True,
         db_index=True,
+        null=True,
+
     )
     liked_by = models.ManyToManyField(
         User,
@@ -115,21 +117,19 @@ class Owner(models.Model):
         verbose_name='ФИО',
         max_length=200,
         db_index=True,
-        null=True,
     )
     phonenumber = PhoneNumberField(
         verbose_name='Телефон',
-        region='RU',
         blank=True,
         db_index=True,
-        null=True,
+        region='RU',
     )
     flats = models.ManyToManyField(
         Flat,
         verbose_name='Квартиры в собственности',
-        related_name='owners',
         blank=True,
         db_index=True,
+        related_name='owners',
     )
 
     class Meta:
